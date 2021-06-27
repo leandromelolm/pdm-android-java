@@ -8,16 +8,18 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <EditText
         android:id="@+id/edit_message"
-        android:layout_width="wrap_content"
+        android:layout_width="0pt"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:hint="@string/edit_message"
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_send"
-        ></Button>
 
+        ></Button>
+    <!--continuar da Parte 3: Tratando eventos - Passo 1-->
 </LinearLayout>
 
 
