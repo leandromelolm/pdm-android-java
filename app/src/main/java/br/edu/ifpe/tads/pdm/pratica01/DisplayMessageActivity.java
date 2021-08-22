@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -44,6 +45,11 @@ public class DisplayMessageActivity extends AppCompatActivity {
         TextView textView = (TextView)findViewById(R.id.message_view);
         textView.setTextSize(40);
         textView.setText(message);
+
+
+        //exibindo  uma ação de voltar, que leva o usuário de volta à MainActivity.
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
     }
 

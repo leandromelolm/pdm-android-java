@@ -12,7 +12,11 @@
         <activity
             android:name=".DisplayMessageActivity"
             android:label="@string/title_activity_display_message"
-            android:theme="@style/Theme.Pratica01.NoActionBar"></activity>
+            android:theme="@style/Theme.Pratica01.NoActionBar">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity"/>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
