@@ -17,9 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_send"
-
+        android:onClick="sendMessage"
         ></Button>
-    <!--continuar da Parte 3: Tratando eventos - Passo 1-->
+
 </LinearLayout>
 
 

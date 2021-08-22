@@ -1,5 +1,6 @@
 package br.edu.ifpe.tads.pdm.pratica01;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -17,11 +18,13 @@ import br.edu.ifpe.tads.pdm.pratica01.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    public final static String EXTRA_MESSAGE = "Pratica01.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public void sendMessage(View view){
+        Intent intent = new Intent(this, DisplayMessageActivity.class);
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+
+        String message = editText.getText().toString();
+
+        intent.putExtra(EXTRA_MESSAGE, message);
+
+        startActivity(intent);
     }
 
     @Override
