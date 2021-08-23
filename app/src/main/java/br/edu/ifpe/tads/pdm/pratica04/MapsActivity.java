@@ -9,8 +9,11 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -19,6 +22,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.Date;
 
@@ -116,6 +121,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.setMyLocationEnabled(this.fine_location);
 
+        findViewById(R.id.button_location).setEnabled(this.fine_location);
+
     }
 
     private void requestPermission() {
@@ -139,6 +146,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mMap != null) {
             mMap.setMyLocationEnabled(this.fine_location);
         }
+
+        findViewById(R.id.button_location).setEnabled(this.fine_location);
+    }
+
+    public void currentLocation(View view) {
+        FusedLocationProviderClient fusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(this);
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location!=null) {
+                    Toast.makeText(MapsActivity.this, "Localização atual: \n" +
+                            "Lat: " + location.getLatitude() + " " +
+                            "Long: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 }
