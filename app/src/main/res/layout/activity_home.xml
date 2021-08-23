@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     tools:context=".HomeActivity">
 
     <TextView
@@ -17,8 +19,9 @@
     <LinearLayout
         android:id="@+id/chat_area"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"></LinearLayout>
 
@@ -32,19 +35,18 @@
 
     <Button
         android:id="@+id/send_message"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-
         android:onClick="buttonSendMsgClick"
         android:text="Send Message" />
 
     <Button
         android:id="@+id/button_sign_up"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center|bottom"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:onClick="buttonSignOutClick"
