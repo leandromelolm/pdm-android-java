@@ -38,13 +38,22 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         String msg = task.isSuccessful() ? "SIGN IN OK!":
                                 "SIGN IN ERROR!";
+                        if(task.isSuccessful()){
+                            abrirTelaPrincipal();
+                        }
                         Toast.makeText(SignInActivity.this, msg,
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
     public void abrirTelaCadastro(View view){
         Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+        startActivity( intent );
+    }
+
+    public void abrirTelaPrincipal(){
+        Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
         startActivity( intent );
     }
 

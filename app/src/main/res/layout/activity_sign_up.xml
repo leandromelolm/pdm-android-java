@@ -44,7 +44,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="480dp"
         android:onClick="buttonSignUpClick"
-        android:text="Cadastre-se"
+        android:text="Sign UP"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_password"
         app:layout_constraintEnd_toEndOf="parent"
