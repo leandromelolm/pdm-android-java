@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "381490654203",
+    "project_id": "praticafb-1e678",
+    "storage_bucket": "praticafb-1e678.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381490654203:android:e1908e2fd974cd2f62795e",
+        "android_client_info": {
+          "package_name": "leandromelo.praticafb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381490654203-kghefgb4u5n1ih6umh7f1e6ahjmae2jg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFEEwoulJR_9MlMwviKvFxbn9xNIyvv64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381490654203-kghefgb4u5n1ih6umh7f1e6ahjmae2jg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
