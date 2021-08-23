@@ -1,11 +1,13 @@
 package br.edu.ifpe.tads.pdm.pratica04;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -82,6 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return false;
             }
         });
+
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -91,7 +94,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         icon(BitmapDescriptorFactory.defaultMarker(0)));
             }
         });
+
+        mMap.setOnMyLocationButtonClickListener(
+                new GoogleMap.OnMyLocationButtonClickListener() {
+                    @Override
+                    public boolean onMyLocationButtonClick() {
+                        Toast.makeText(MapsActivity.this,
+                                "Indo para a sua localização.", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                });
+
+        mMap.setOnMyLocationClickListener(
+                new GoogleMap.OnMyLocationClickListener() {
+                    @Override
+                    public void onMyLocationClick(@NonNull Location location) {
+                        Toast.makeText(MapsActivity.this,
+                                "Você está aqui!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        mMap.setMyLocationEnabled(this.fine_location);
+
     }
+
     private void requestPermission() {
         int permissionCheck = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
@@ -102,11 +128,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 FINE_LOCATION_REQUEST);
     }
+
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         boolean granted = (grantResults.length > 0) &&
                 (grantResults[0] == PackageManager.PERMISSION_GRANTED);
         this.fine_location = (requestCode == FINE_LOCATION_REQUEST) && granted;
+
+        if (mMap != null) {
+            mMap.setMyLocationEnabled(this.fine_location);
+        }
     }
+
 }
