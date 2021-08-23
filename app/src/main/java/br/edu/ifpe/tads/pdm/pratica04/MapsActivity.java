@@ -1,7 +1,11 @@
 package br.edu.ifpe.tads.pdm.pratica04;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -20,8 +24,10 @@ import br.edu.ifpe.tads.pdm.pratica04.databinding.ActivityMapsBinding;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final int FINE_LOCATION_REQUEST = 1;
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
+    private boolean fine_location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        requestPermission();
     }
 
     /**
@@ -83,5 +91,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         icon(BitmapDescriptorFactory.defaultMarker(0)));
             }
         });
+    }
+    private void requestPermission() {
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        this.fine_location = (permissionCheck == PackageManager.PERMISSION_GRANTED);
+        if (this.fine_location)
+            return;
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                FINE_LOCATION_REQUEST);
+    }
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        boolean granted = (grantResults.length > 0) &&
+                (grantResults[0] == PackageManager.PERMISSION_GRANTED);
+        this.fine_location = (requestCode == FINE_LOCATION_REQUEST) && granted;
     }
 }
