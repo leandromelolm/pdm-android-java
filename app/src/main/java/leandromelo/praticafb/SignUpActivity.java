@@ -19,6 +19,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     private EditText edEmail, edPassword;
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuthListener authListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         edEmail = findViewById(R.id.edit_email);
         edPassword = findViewById(R.id.edit_password);
+
+        this.mAuth = FirebaseAuth.getInstance();
+        this.authListener = new FirebaseAuthListener(this);
 
     }
     
@@ -43,5 +49,16 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(authListener);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        mAuth.removeAuthStateListener(authListener);
     }
 }

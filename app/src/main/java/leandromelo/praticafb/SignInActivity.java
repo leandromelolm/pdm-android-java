@@ -18,6 +18,9 @@ public class SignInActivity extends AppCompatActivity {
 
     private EditText edEmail, edPassword;
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuthListener authListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,9 @@ public class SignInActivity extends AppCompatActivity {
 
         edEmail = findViewById(R.id.edit_email);
         edPassword = findViewById(R.id.edit_password);
+
+        this.mAuth = FirebaseAuth.getInstance();
+        this.authListener = new FirebaseAuthListener(this);
 
     }
 
@@ -55,6 +61,17 @@ public class SignInActivity extends AppCompatActivity {
     public void abrirTelaPrincipal(){
         Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
         startActivity( intent );
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(authListener);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        mAuth.removeAuthStateListener(authListener);
     }
 
 }
