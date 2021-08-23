@@ -12,12 +12,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.BreakIterator;
 
+import leandromelo.praticafb.model.User;
+
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText edEmail, edPassword;
+    private EditText edEmail, edPassword,edName;
 
     private FirebaseAuth mAuth;
     private FirebaseAuthListener authListener;
@@ -29,6 +33,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         edEmail = findViewById(R.id.edit_email);
         edPassword = findViewById(R.id.edit_password);
+        edName = findViewById(R.id.edit_name);
+
 
         this.mAuth = FirebaseAuth.getInstance();
         this.authListener = new FirebaseAuthListener(this);
@@ -36,6 +42,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
     
     public void buttonSignUpClick(View view) {
+
+
+        final String name = edName.getText().toString();
+
         String email = edEmail.getText().toString();
         String password = edPassword.getText().toString();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -43,10 +53,17 @@ public class SignUpActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        String msg = task.isSuccessful() ? "SIGN UP OK!":
+                        String msg = task.isSuccessful() ? "SIGN UP OK!" :
                                 "SIGN UP ERROR!";
                         Toast.makeText(SignUpActivity.this, msg,
                                 Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            User tempUser = new User(name, email);
+                            DatabaseReference drUsers = FirebaseDatabase.
+                                    getInstance().getReference("users");
+                            drUsers.child(mAuth.getCurrentUser().getUid()).
+                                    setValue(tempUser);
+                        }
                     }
                 });
     }
