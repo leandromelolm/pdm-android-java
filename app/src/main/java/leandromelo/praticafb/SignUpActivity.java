@@ -17,21 +17,19 @@ import java.text.BreakIterator;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    //private EditText edEmail = findViewById(R.id.edit_email);
-    //private EditText edPassword = findViewById(R.id.edit_password);
-
+    private EditText edEmail, edPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        edEmail = findViewById(R.id.edit_email);
+        edPassword = findViewById(R.id.edit_password);
+
     }
     
     public void buttonSignUpClick(View view) {
-
-        final EditText edEmail = findViewById(R.id.edit_email);
-        final EditText edPassword = findViewById(R.id.edit_password);
-
         String email = edEmail.getText().toString();
         String password = edPassword.getText().toString();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
