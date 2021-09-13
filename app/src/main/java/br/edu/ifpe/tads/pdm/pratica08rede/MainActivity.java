@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -52,17 +54,25 @@ public class MainActivity extends AppCompatActivity implements ForecastListener 
                 WeatherForecast forecast = response.body();
                 GregorianCalendar cal = new GregorianCalendar();
                 List<String> forecastList = new ArrayList<>();
-                for (WeatherForecast.Forecast fc : forecast.list) {
-                    String tempStr = ForecastParser.
-                            formatHighLows(fc.temp.min, fc.temp.max);
-                    String dateStr = ForecastParser.
-                            getReadableDateString(cal.getTimeInMillis());
-                    String fcStr = dateStr + " - " + fc.weather.get(0).description +
-                            " - " + tempStr;
-                    forecastList.add(fcStr);
-                    cal.add(GregorianCalendar.DATE, 1);
+                try {
+                    for (WeatherForecast.Forecast fc : forecast.list) {
+                        String tempStr = ForecastParser.
+                                formatHighLows(fc.temp.min, fc.temp.max);
+                        String dateStr = ForecastParser.
+                                getReadableDateString(cal.getTimeInMillis());
+                        String fcStr = dateStr + " - " + fc.weather.get(0).description +
+                                " - " + tempStr;
+                        forecastList.add(fcStr);
+                        cal.add(GregorianCalendar.DATE, 1);
+                    }
+                    showForecast(forecastList);
+                }catch (Exception exception){
+                    Toast t = Toast.makeText(MainActivity.this, "Digite um nome de cidade válida", Toast.LENGTH_LONG);
+                    t.setGravity(Gravity.CENTER,0,0);
+                    t.show();
+                    //finish();
+                    //startActivity(getIntent());
                 }
-                showForecast(forecastList);
             }
             @Override
             public void onFailure(Call<WeatherForecast> call, Throwable t) {
